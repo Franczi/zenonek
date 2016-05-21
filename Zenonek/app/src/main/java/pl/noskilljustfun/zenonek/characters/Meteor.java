@@ -60,7 +60,7 @@ public class Meteor {
             Random generator=new Random();
             speed=generator.nextInt(10)+10;
             posY=minY;
-            posX=generator.nextInt(maxX)+bitmap.getWidth();
+            posX=generator.nextInt(maxX)-bitmap.getWidth();
 
         }}
     public int getPosX() {

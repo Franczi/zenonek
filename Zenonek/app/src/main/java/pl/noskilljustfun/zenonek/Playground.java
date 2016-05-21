@@ -4,8 +4,12 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import java.util.ArrayList;
 
 import pl.noskilljustfun.zenonek.characters.Meteor;
 import pl.noskilljustfun.zenonek.characters.Player;
@@ -24,6 +28,7 @@ public class Playground extends SurfaceView implements Runnable {
     private Paint paint;
     private Canvas canvas;
     private SurfaceHolder playerHolder;
+    private  PlayerController playerController;
 
     public Playground(Context context) {
         super(context);
@@ -48,6 +53,7 @@ public class Playground extends SurfaceView implements Runnable {
         meteor1.update(10);
         meteor2.update(10);
         meteor3.update(10);
+        playerController=new PlayerController(scrX,scrY);
     }
 
 
@@ -88,7 +94,10 @@ public class Playground extends SurfaceView implements Runnable {
         if(playerHolder.getSurface().isValid()) {
             canvas = playerHolder.lockCanvas();
 
-            canvas.drawColor(Color.argb(255,0,0,0));
+
+
+
+            canvas.drawColor(Color.argb(255, 0, 0, 0));
 
             canvas.drawBitmap(
                     zenonek.getBitmap(),
@@ -116,7 +125,13 @@ public class Playground extends SurfaceView implements Runnable {
                     meteor3.getPosY(),
                     paint);
 
-
+            ArrayList<Rect> rects=playerController.getAllRectangles();
+            paint.setColor(Color.argb(200, 255, 255, 255));
+            for (Rect rec: rects
+                    ) {
+                RectF recf= new RectF(rec.left,rec.top,rec.right,rec.bottom);
+                canvas.drawRoundRect(recf, 15f, 15f, paint);
+            }
 
             playerHolder.unlockCanvasAndPost(canvas);
         }
