@@ -11,7 +11,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        playground=new Playground(getApplicationContext());
+        playground=new Playground(this);
         setContentView(playground);
     }
 

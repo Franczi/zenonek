@@ -16,13 +16,13 @@ public class Player {
     private int speed=0;
 
     public Player(Context context) {
-        posX=50;
-        posY=50;
+        posX=100;
+        posY=100;
         bitmap= BitmapFactory.decodeResource(context.getResources(),R.drawable.zenonek );
     }
 
-    void update(){
-
+    public void update(){
+        //TODO dodanie poruszania sie w poziomie
     }
 
     public Bitmap getBitmap() {
