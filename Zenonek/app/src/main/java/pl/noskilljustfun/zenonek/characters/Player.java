@@ -11,9 +11,21 @@ import pl.noskilljustfun.zenonek.R;
  */
 public class Player {
 
+
+    private final static  int MAX_SPEED=20;
     private Bitmap bitmap;
     private int posX,posY,maxX,maxY,minX,minY;
     private int speed=0;
+
+
+
+    private boolean isPressRight=false;
+    private boolean isPressLeft=false;
+
+    private final static int MOVE_LEFT =-1;
+    private final static int MOVE_RIGHT =1;
+  // private boolean isMoving=false;
+
 
     public Player(Context context) {
         posX=100;
@@ -30,12 +42,19 @@ public class Player {
         maxY=y-bitmap.getWidth();
         minY=0;
         posX=maxX-100;
-        posY=maxY-100;
+        posY=maxY-200;
     }
 
 
     public void update(){
-        //TODO dodanie poruszania sie w poziomie
+
+        if(isPressRight) {
+            posX+=MOVE_RIGHT;
+        }
+        else if(isPressLeft){
+            posX+=MOVE_LEFT;
+        }
+
     }
 
     public Bitmap getBitmap() {
@@ -69,5 +88,11 @@ public class Player {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
+    public void setIsPressRight(boolean isPressRight) {
+        this.isPressRight = isPressRight;
+    }
 
+    public void setIsPressLeft(boolean isPressLeft) {
+        this.isPressLeft = isPressLeft;
+    }
 }
