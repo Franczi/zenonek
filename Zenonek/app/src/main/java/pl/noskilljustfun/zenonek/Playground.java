@@ -26,8 +26,16 @@ public class Playground extends SurfaceView implements Runnable {
         zenonek=new Player(context);
         paint = new Paint();
         zenonek.update();
-
     }
+
+    public Playground(Context context,int scrX, int scrY) {
+        super(context);
+        playerHolder=getHolder();
+        zenonek=new Player(context,scrX,scrY);
+        paint = new Paint();
+        zenonek.update();
+    }
+
 
     @Override
     public void run() {

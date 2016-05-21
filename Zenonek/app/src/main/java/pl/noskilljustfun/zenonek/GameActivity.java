@@ -1,7 +1,9 @@
 package pl.noskilljustfun.zenonek;
 
+import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Display;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -11,7 +13,12 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        playground=new Playground(this);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point point= new Point();
+
+     display.getSize(point);
+
+        playground=new Playground(this,point.x,point.y);
         setContentView(playground);
     }
 

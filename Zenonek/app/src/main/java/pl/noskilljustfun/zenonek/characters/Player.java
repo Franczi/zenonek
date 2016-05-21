@@ -12,7 +12,7 @@ import pl.noskilljustfun.zenonek.R;
 public class Player {
 
     private Bitmap bitmap;
-    private int posX,posY;
+    private int posX,posY,maxX,maxY,minX,minY;
     private int speed=0;
 
     public Player(Context context) {
@@ -20,6 +20,19 @@ public class Player {
         posY=100;
         bitmap= BitmapFactory.decodeResource(context.getResources(),R.drawable.zenonek );
     }
+
+    public Player(Context context,int x,int y) {
+
+        bitmap= BitmapFactory.decodeResource(context.getResources(),R.drawable.zenonek );
+
+        maxX=x-bitmap.getHeight();
+        minX=0;
+        maxY=y-bitmap.getWidth();
+        minY=0;
+        posX=maxX-100;
+        posY=maxY-100;
+    }
+
 
     public void update(){
         //TODO dodanie poruszania sie w poziomie
