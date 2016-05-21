@@ -14,7 +14,7 @@ import pl.noskilljustfun.zenonek.characters.Player;
  */
 public class Playground extends SurfaceView implements Runnable {
     private boolean running;
-    private Thread gameThread;
+    private Thread gameThread=null;
     private Player zenonek;
     private Paint paint;
     private Canvas canvas;
@@ -81,7 +81,7 @@ public class Playground extends SurfaceView implements Runnable {
     public void resume(){
         
         running=true;
-        gameThread=new Thread();
+        gameThread=new Thread(this);
         gameThread.start();
     }
 }
