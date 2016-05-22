@@ -33,6 +33,7 @@ public class Playground extends SurfaceView implements Runnable {
     private int x,y;
 
 
+
     public Playground(Context context) {
         super(context);
         playerHolder=getHolder();
@@ -57,8 +58,10 @@ public class Playground extends SurfaceView implements Runnable {
         meteor2.update(10);
         meteor3.update(10);
         playerController=new PlayerController(scrX,scrY);
+
         x=scrX;
         y=scrY;
+
     }
 
 
@@ -160,7 +163,13 @@ public class Playground extends SurfaceView implements Runnable {
                     meteor3.getPosY(),
                     paint);
 
-
+            ArrayList<Rect> rects=playerController.getAllRectangles();
+            paint.setColor(Color.argb(200, 255, 255, 255));
+            for (Rect rec: rects
+                    ) {
+                RectF recf= new RectF(rec.left,rec.top,rec.right,rec.bottom);
+                canvas.drawRoundRect(recf, 15f, 15f, paint);
+            }
 
             ArrayList<Rect> rects=playerController.getAllRectangles();
             paint.setColor(Color.argb(200, 255, 255, 255));
