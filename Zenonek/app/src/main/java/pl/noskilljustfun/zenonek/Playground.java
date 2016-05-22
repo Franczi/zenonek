@@ -28,13 +28,9 @@ public class Playground extends SurfaceView implements Runnable {
     private Meteor meteor3;
     private Paint paint;
     private Canvas canvas;
-    private long timeStart;
-    private long timeTaken;
-    private long distanceRemaining;
     private SurfaceHolder playerHolder;
     private  PlayerController playerController;
     private int x,y;
-
 
 
     public Playground(Context context) {
@@ -61,16 +57,8 @@ public class Playground extends SurfaceView implements Runnable {
         meteor2.update(10);
         meteor3.update(10);
         playerController=new PlayerController(scrX,scrY);
-
-        timeTaken=0;
-        distanceRemaining=10000;
-
-        //pobranie czasu startowego
-        timeStart=System.currentTimeMillis();
-
         x=scrX;
         y=scrY;
-
     }
 
 
@@ -127,7 +115,6 @@ public class Playground extends SurfaceView implements Runnable {
                 //gra skonczona
                 ending=true;
             }}
-        timeTaken=System.currentTimeMillis()-timeStart;
 
     }
 
@@ -162,8 +149,6 @@ public class Playground extends SurfaceView implements Runnable {
                     meteor1.getPosY(),
                     paint);
             canvas.drawText("Shield:" + zenonek.getShield(), 10, 20, paint);
-            canvas.drawText("Time:"+ timeTaken+"s",500,20,paint);
-            canvas.drawText("Distance:"+distanceRemaining / 1000 + " KM", 800, 20, paint);
             canvas.drawBitmap(
                     meteor2.getBitmap(),
                     meteor2.getPosX(),
@@ -175,6 +160,8 @@ public class Playground extends SurfaceView implements Runnable {
                     meteor3.getPosY(),
                     paint);
 
+
+
             ArrayList<Rect> rects=playerController.getAllRectangles();
             paint.setColor(Color.argb(200, 255, 255, 255));
             for (Rect rec: rects
@@ -182,7 +169,6 @@ public class Playground extends SurfaceView implements Runnable {
                 RectF recf= new RectF(rec.left,rec.top,rec.right,rec.bottom);
                 canvas.drawRoundRect(recf, 15f, 15f, paint);
             }
-
 
             playerHolder.unlockCanvasAndPost(canvas);
         }
