@@ -3,6 +3,7 @@ package pl.noskilljustfun.zenonek.characters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 
 import pl.noskilljustfun.zenonek.R;
 
@@ -11,9 +12,23 @@ import pl.noskilljustfun.zenonek.R;
  */
 public class Player {
 
+
+    private final static  int MAX_SPEED=20;
     private Bitmap bitmap;
     private int posX,posY,maxX,maxY,minX,minY;
     private int speed=0;
+    private Rect hitBox;
+    private int shield;
+
+
+
+    private boolean isPressRight=false;
+    private boolean isPressLeft=false;
+
+    private final static int MOVE_LEFT =-1;
+    private final static int MOVE_RIGHT =1;
+  // private boolean isMoving=false;
+
 
     public Player(Context context) {
         posX=100;
@@ -21,21 +36,37 @@ public class Player {
         bitmap= BitmapFactory.decodeResource(context.getResources(),R.drawable.zenonek );
     }
 
-    public Player(Context context,int x,int y) {
+
+
+    public Player(Context context, int x, int y) {
 
         bitmap= BitmapFactory.decodeResource(context.getResources(),R.drawable.zenonek );
+        hitBox=new Rect(x,y,bitmap.getWidth(),bitmap.getHeight());
 
         maxX=x-bitmap.getHeight();
         minX=0;
         maxY=y-bitmap.getWidth();
         minY=0;
         posX=maxX-100;
-        posY=maxY-100;
+        posY=maxY-200;
+
+        shield=20;
     }
 
 
     public void update(){
-        //TODO dodanie poruszania sie w poziomie
+
+        if(isPressRight) {
+            posX+=MOVE_RIGHT;
+        }
+        else if(isPressLeft){
+            posX+=MOVE_LEFT;
+        }
+        hitBox.left=posX;
+        hitBox.right=posX+bitmap.getWidth();
+        hitBox.top=posY;
+        hitBox.bottom=posY+bitmap.getWidth();
+
     }
 
     public Bitmap getBitmap() {
@@ -69,5 +100,19 @@ public class Player {
     public void setSpeed(int speed) {
         this.speed = speed;
     }
+    public void setIsPressRight(boolean isPressRight) {
+        this.isPressRight = isPressRight;
+    }
+
+    public void setIsPressLeft(boolean isPressLeft) {
+        this.isPressLeft = isPressLeft;
+    }
+    public Rect getHitBox() {
+        return hitBox;
+    }
+    public int getShield() {
+        return shield;
+    }
+    public void reduceShield(){shield --;}
 
 }

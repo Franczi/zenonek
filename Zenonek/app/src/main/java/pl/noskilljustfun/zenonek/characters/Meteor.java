@@ -3,6 +3,7 @@ package pl.noskilljustfun.zenonek.characters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 
 import java.util.Random;
 
@@ -17,17 +18,13 @@ public class Meteor {
     private int speed=1;
 
     //wychodzenie poza ekran
-
     private int maxY;
     private int minY;
 
     private int maxX;
-
-
     private int minX;
-
-
-
+    //kolizje
+    private Rect hitBox;
 
 
 
@@ -37,6 +34,7 @@ public class Meteor {
         maxX=screenX;
         minX=1;
         minY=1;
+        hitBox=new Rect(posX,posY,bitmap.getWidth(),bitmap.getHeight());
         Random generator=new Random();
         speed=generator.nextInt(6)+10;
 
@@ -60,9 +58,14 @@ public class Meteor {
             Random generator=new Random();
             speed=generator.nextInt(10)+10;
             posY=minY;
-            posX=generator.nextInt(maxX)+bitmap.getWidth();
+            posX=generator.nextInt(maxX)-bitmap.getWidth();
 
-        }}
+        }
+        hitBox.left=posX;
+        hitBox.right=posX+bitmap.getWidth();
+        hitBox.top=posY;
+        hitBox.bottom=posY+bitmap.getWidth();
+    }
     public int getPosX() {
         return posX;
     }
@@ -79,5 +82,8 @@ public class Meteor {
         this.posY = posY;
     }
 
+    public Rect getHitBox() {
+        return hitBox;
+    }
 
 }
