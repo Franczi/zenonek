@@ -60,10 +60,10 @@ public class Playground extends SurfaceView implements Runnable {
         meteor3=new Meteor(context,scrX,scrY);
         paint = new Paint();
         zenonek.update();
-        meteor.update(10);
-        meteor1.update(10);
-        meteor2.update(10);
-        meteor3.update(10);
+        meteor.update();
+        meteor1.update();
+        meteor2.update();
+        meteor3.update();
         timeTaken=0;
         distanceRemaining=10000;
         timeStart=System.currentTimeMillis();
@@ -94,12 +94,12 @@ public class Playground extends SurfaceView implements Runnable {
 
     private void update() {
         zenonek.update();
-        meteor.update(10);
-        meteor1.update(10);
+        meteor.update();
+        meteor1.update();
 
-        meteor2.update(10);
+        meteor2.update();
 
-        meteor3.update(10);
+        meteor3.update();
         boolean hitDetected=false;
         if(Rect.intersects(zenonek.getHitBox(),meteor.getHitBox()))
         {
@@ -164,9 +164,11 @@ public class Playground extends SurfaceView implements Runnable {
                     meteor1.getPosX(),
                     meteor1.getPosY(),
                     paint);
-            canvas.drawText("Shield:" + zenonek.getShield(), 10, 20, paint);
-            canvas.drawText("Distance:"+distanceRemaining / 1000 + " KM", 800, 20, paint);
-            canvas.drawText("Time:"+ timeTaken+"s",500,20,paint);
+            paint.setTextAlign(Paint.Align.LEFT);
+            paint.setTextSize(45);
+            canvas.drawText("Shield:" + zenonek.getShield(), 10, 40, paint);
+            canvas.drawText("Distance:"+distanceRemaining / 1000 + " KM", 800, 40, paint);
+            canvas.drawText("Time:"+ timeTaken+"s",500,40,paint);
 
 
             canvas.drawBitmap(
