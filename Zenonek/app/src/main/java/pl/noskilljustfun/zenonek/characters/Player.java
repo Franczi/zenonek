@@ -22,12 +22,7 @@ public class Player {
 
 
 
-    private boolean isPressRight=false;
-    private boolean isPressLeft=false;
 
-    private final static int MOVE_LEFT =-1;
-    private final static int MOVE_RIGHT =1;
-  // private boolean isMoving=false;
 
 
 
@@ -131,7 +126,5 @@ public class Player {
     public void reduceShield(){shield --;}
 
 
-    public void setIsPressLeft(boolean isPressLeft) {
-        this.isPressLeft = isPressLeft;
-    }
+
 }

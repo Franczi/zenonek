@@ -27,6 +27,13 @@ public class Playground extends SurfaceView implements Runnable {
     private Meteor meteor2;
     private Meteor meteor3;
     private Paint paint;
+    private long timeStart;
+    private long timeTaken;
+    private long distanceRemaining;
+
+
+
+
     private Canvas canvas;
     private SurfaceHolder playerHolder;
     private  PlayerController playerController;
@@ -57,6 +64,10 @@ public class Playground extends SurfaceView implements Runnable {
         meteor1.update(10);
         meteor2.update(10);
         meteor3.update(10);
+        timeTaken=0;
+        distanceRemaining=10000;
+        timeStart=System.currentTimeMillis();
+
         playerController=new PlayerController(scrX,scrY);
 
         x=scrX;
@@ -118,6 +129,8 @@ public class Playground extends SurfaceView implements Runnable {
                 //gra skonczona
                 ending=true;
             }}
+        timeTaken=System.currentTimeMillis()-timeStart;
+
 
     }
 
@@ -152,6 +165,10 @@ public class Playground extends SurfaceView implements Runnable {
                     meteor1.getPosY(),
                     paint);
             canvas.drawText("Shield:" + zenonek.getShield(), 10, 20, paint);
+            canvas.drawText("Distance:"+distanceRemaining / 1000 + " KM", 800, 20, paint);
+            canvas.drawText("Time:"+ timeTaken+"s",500,20,paint);
+
+
             canvas.drawBitmap(
                     meteor2.getBitmap(),
                     meteor2.getPosX(),
@@ -171,13 +188,7 @@ public class Playground extends SurfaceView implements Runnable {
                 canvas.drawRoundRect(recf, 15f, 15f, paint);
             }
 
-            ArrayList<Rect> rects=playerController.getAllRectangles();
-            paint.setColor(Color.argb(200, 255, 255, 255));
-            for (Rect rec: rects
-                    ) {
-                RectF recf= new RectF(rec.left,rec.top,rec.right,rec.bottom);
-                canvas.drawRoundRect(recf, 15f, 15f, paint);
-            }
+
 
             playerHolder.unlockCanvasAndPost(canvas);
         }

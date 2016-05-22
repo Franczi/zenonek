@@ -7,12 +7,39 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/star2"
+
     tools:context="pl.noskilljustfun.zenonek.MainActivity">
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/startGame"
-        android:id="@+id/btnPlay"/>
+        android:id="@+id/btnPlay"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textAppearance="?android:attr/textAppearanceLarge"
+             android:text="ZENONEK"
+             android:id="@+id/textView"
+             android:layout_above="@+id/btnPlay"
+             android:layout_centerHorizontal="true"
+             android:layout_marginBottom="71dp"
+             android:textColor="@android:color/holo_blue_light"
+             android:textSize="50dp" />
+
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:textAppearance="?android:attr/textAppearanceMedium"
+             android:text="Aby rozpocząść wciśnij"
+             android:id="@+id/textView2"
+             android:layout_marginBottom="31dp"
+             android:layout_above="@+id/btnPlay"
+             android:layout_centerHorizontal="true"
+             android:textColor="@color/abc_secondary_text_material_dark"
+             />
 
 </RelativeLayout>
