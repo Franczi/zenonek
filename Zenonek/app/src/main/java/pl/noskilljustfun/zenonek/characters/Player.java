@@ -22,6 +22,11 @@ public class Player {
 
 
 
+
+
+
+
+
     private boolean isPressRight=false;
     private boolean isPressLeft=false;
 
@@ -50,7 +55,9 @@ public class Player {
         posX=maxX-100;
         posY=maxY-200;
 
+
         shield=20;
+
     }
 
 
@@ -62,10 +69,12 @@ public class Player {
         else if(isPressLeft){
             posX+=MOVE_LEFT;
         }
+
         hitBox.left=posX;
         hitBox.right=posX+bitmap.getWidth();
         hitBox.top=posY;
         hitBox.bottom=posY+bitmap.getWidth();
+
 
     }
 
@@ -104,6 +113,7 @@ public class Player {
         this.isPressRight = isPressRight;
     }
 
+
     public void setIsPressLeft(boolean isPressLeft) {
         this.isPressLeft = isPressLeft;
     }
@@ -114,5 +124,7 @@ public class Player {
         return shield;
     }
     public void reduceShield(){shield --;}
+
+
 
 }
