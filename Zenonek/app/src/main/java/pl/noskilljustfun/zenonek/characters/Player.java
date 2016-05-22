@@ -64,6 +64,13 @@ public class Player {
             posX+=MOVE_LEFT;
         }
 
+        if(posX<=minX){
+            posX=1;
+        }
+        else if(posX>=maxX)
+        {
+            posX=maxX;
+        }
         hitBox.left=posX;
         hitBox.right=posX+bitmap.getWidth();
         hitBox.top=posY;
