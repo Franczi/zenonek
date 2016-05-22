@@ -19,6 +19,7 @@ import pl.noskilljustfun.zenonek.characters.Player;
  */
 public class Playground extends SurfaceView implements Runnable {
     private boolean running;
+    private boolean ending;
     private Thread gameThread=null;
     private Player zenonek;
     private Meteor meteor;
@@ -29,6 +30,9 @@ public class Playground extends SurfaceView implements Runnable {
     private Canvas canvas;
     private SurfaceHolder playerHolder;
     private  PlayerController playerController;
+    private int x,y;
+
+
 
     public Playground(Context context) {
         super(context);
@@ -54,6 +58,10 @@ public class Playground extends SurfaceView implements Runnable {
         meteor2.update(10);
         meteor3.update(10);
         playerController=new PlayerController(scrX,scrY);
+
+        x=scrX;
+        y=scrY;
+
     }
 
 
@@ -81,6 +89,35 @@ public class Playground extends SurfaceView implements Runnable {
         meteor2.update(10);
 
         meteor3.update(10);
+        boolean hitDetected=false;
+        if(Rect.intersects(zenonek.getHitBox(),meteor.getHitBox()))
+        {
+            hitDetected=true;
+            meteor.setPosY(-100);
+        }
+        if(Rect.intersects(zenonek.getHitBox(),meteor1.getHitBox()))
+        {
+            hitDetected=true;
+            meteor1.setPosY(-100);
+        }
+        if(Rect.intersects(zenonek.getHitBox(),meteor2.getHitBox()))
+        {
+            hitDetected=true;
+            meteor2.setPosY(-100);
+        }
+        if(Rect.intersects(zenonek.getHitBox(),meteor3.getHitBox()))
+        {
+            hitDetected=true;
+            meteor3.setPosY(-100);
+        }
+        if(hitDetected){
+
+            zenonek.reduceShield();
+            if(zenonek.getShield()<0){
+
+                //gra skonczona
+                ending=true;
+            }}
 
     }
 
@@ -114,6 +151,7 @@ public class Playground extends SurfaceView implements Runnable {
                     meteor1.getPosX(),
                     meteor1.getPosY(),
                     paint);
+            canvas.drawText("Shield:" + zenonek.getShield(), 10, 20, paint);
             canvas.drawBitmap(
                     meteor2.getBitmap(),
                     meteor2.getPosX(),
@@ -124,6 +162,14 @@ public class Playground extends SurfaceView implements Runnable {
                     meteor3.getPosX(),
                     meteor3.getPosY(),
                     paint);
+
+            ArrayList<Rect> rects=playerController.getAllRectangles();
+            paint.setColor(Color.argb(200, 255, 255, 255));
+            for (Rect rec: rects
+                    ) {
+                RectF recf= new RectF(rec.left,rec.top,rec.right,rec.bottom);
+                canvas.drawRoundRect(recf, 15f, 15f, paint);
+            }
 
             ArrayList<Rect> rects=playerController.getAllRectangles();
             paint.setColor(Color.argb(200, 255, 255, 255));
