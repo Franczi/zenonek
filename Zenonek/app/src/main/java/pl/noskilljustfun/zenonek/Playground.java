@@ -30,11 +30,12 @@ public class Playground extends SurfaceView implements Runnable {
     private Paint paint;
     private long timeStart;
     private long timeTaken;
+    private long fastestTime;
     private long distanceRemaining;
 
 
 
-
+    private Context context;
     private Canvas canvas;
     private SurfaceHolder playerHolder;
     private  PlayerController playerController;
@@ -42,37 +43,27 @@ public class Playground extends SurfaceView implements Runnable {
 
 
 
-    public Playground(Context context) {
-        super(context);
-        playerHolder=getHolder();
-        zenonek=new Player(context);
 
-        paint = new Paint();
-        zenonek.update();
-    }
 
     public Playground(Context context,int scrX, int scrY) {
         super(context);
-        playerHolder=getHolder();
-        zenonek=new Player(context,scrX,scrY);
-        meteor=new Meteor(context,scrX,scrY);
-        meteor1=new Meteor(context,scrX,scrY);
-        meteor2=new Meteor(context,scrX,scrY);
-        meteor3=new Meteor(context,scrX,scrY);
-        paint = new Paint();
-        zenonek.update();
-        meteor.update();
-        meteor1.update();
-        meteor2.update();
-        meteor3.update();
-        timeTaken=0;
-        distanceRemaining=10000;
-        timeStart=System.currentTimeMillis();
+        this.context=context;
+
+
+
 
         playerController=new PlayerController(scrX,scrY);
 
+
+
+
+
         x=scrX;
         y=scrY;
+        startGame();
+        playerHolder=getHolder();
+
+        paint = new Paint();
 
     }
 
@@ -94,13 +85,7 @@ public class Playground extends SurfaceView implements Runnable {
     }
 
     private void update() {
-        zenonek.update();
-        meteor.update();
-        meteor1.update();
 
-        meteor2.update();
-
-        meteor3.update();
         boolean hitDetected=false;
         if(Rect.intersects(zenonek.getHitBox(),meteor.getHitBox()))
         {
@@ -130,7 +115,27 @@ public class Playground extends SurfaceView implements Runnable {
                 //gra skonczona
                 ending=true;
             }}
-        timeTaken=System.currentTimeMillis()-timeStart;
+
+        zenonek.update();
+        meteor.update();
+        meteor1.update();
+
+        meteor2.update();
+
+        meteor3.update();
+
+        if(!ending) {
+            distanceRemaining -= zenonek.getSpeed();
+
+            timeTaken=System.currentTimeMillis()-timeStart;
+        }
+        if(distanceRemaining<0)
+        {
+            if(timeTaken<fastestTime)
+            {fastestTime=timeTaken;
+            }
+            ending=true;
+        }
 
 
     }
@@ -171,7 +176,7 @@ public class Playground extends SurfaceView implements Runnable {
 
             canvas.drawText("Shield:" + zenonek.getShield(), 10, 40, paint);
             canvas.drawText("Distance:"+distanceRemaining / 1000 + " KM", 800, 40, paint);
-            canvas.drawText("Time:"+ timeTaken+"s",500,40,paint);
+            canvas.drawText("Time:"+ timeTaken/1000+"s",500,40,paint);
 
 
             canvas.drawBitmap(
@@ -191,6 +196,19 @@ public class Playground extends SurfaceView implements Runnable {
                     ) {
                 RectF recf= new RectF(rec.left,rec.top,rec.right,rec.bottom);
                 canvas.drawRoundRect(recf, 15f, 15f, paint);
+            }
+            if(ending)
+            {
+                paint.setTextSize(80);
+                paint.setTextAlign(Paint.Align.CENTER);
+                canvas.drawText("GAME OVER",600 , 100, paint);
+                paint.setTextSize(25);
+                canvas.drawText("Fastest:" + fastestTime + "s", 600, 160, paint);
+                canvas.drawText("Time:" + timeTaken/1000 + "s", 600, 200, paint);
+                canvas.drawText("DistanceRemaining:" + distanceRemaining / 100 + " KM", 600, 240, paint);
+                paint.setTextSize(80);
+                canvas.drawText("TAP to REPLAY!", 600, 350, paint);
+
             }
 
 
@@ -212,11 +230,36 @@ public class Playground extends SurfaceView implements Runnable {
         gameThread=new Thread(this);
         gameThread.start();
     }
+    private void startGame(){
+        //inicjalizacja obiektow
+        //inicjalizacja metody game end
+        ending=false;
+        zenonek=new Player(context,x,y);
+        meteor=new Meteor(context,x,y);
+        meteor1=new Meteor(context,x,y);
+        meteor2=new Meteor(context,x,y);
+        meteor3=new Meteor(context,x,y);
 
+
+        //reset czasu i dystansu
+        distanceRemaining=10000; //10km
+        timeTaken=0;
+
+        //pobranie czasu startowego
+        timeStart=System.currentTimeMillis();
+
+
+
+
+    }
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
         playerController.buttonClicked(event, running, zenonek);
+        //jezeli jestesmy na screenie koncowym zacznij nowa gre
+        if(ending){
+            startGame();
+        }
 
         return true;
     }

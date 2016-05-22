@@ -59,14 +59,6 @@ public class PlayerController {
                         }
                         break;
 
-                    case MotionEvent.ACTION_UP:
-                        if (right.contains(x, y)) {
-                            zenonek.setIsPressRight(false);
-                        } else if (left.contains(x, y)) {
-                            zenonek.setIsPressLeft(false);
-                        }
-                        break;
-
                     case MotionEvent.ACTION_POINTER_DOWN:
                         if(left.contains(x,y)){
                             zenonek.setIsPressLeft(true);
@@ -76,7 +68,13 @@ public class PlayerController {
                         }
                         break;
 
-
+                    case MotionEvent.ACTION_UP:
+                        if (right.contains(x, y)) {
+                            zenonek.setIsPressRight(false);
+                        } else if (left.contains(x, y)) {
+                            zenonek.setIsPressLeft(false);
+                        }
+                        break;
                     case MotionEvent.ACTION_POINTER_UP:
                         if(left.contains(x,y)){
                             zenonek.setIsPressLeft(true);
@@ -85,6 +83,7 @@ public class PlayerController {
                             zenonek.setIsPressRight(true);
                         }
                         break;
+
                 }
             }
 

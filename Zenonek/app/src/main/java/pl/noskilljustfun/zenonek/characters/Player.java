@@ -48,7 +48,7 @@ public class Player {
         minY=0;
         posX=maxX-100;
         posY=maxY-200;
-
+        speed=10;
 
         shield=20;
 
@@ -64,13 +64,6 @@ public class Player {
             posX+=MOVE_LEFT;
         }
 
-        if(posX<=minX){
-            posX=1;
-        }
-        else if(posX>=maxX)
-        {
-            posX=maxX;
-        }
         hitBox.left=posX;
         hitBox.right=posX+bitmap.getWidth();
         hitBox.top=posY;
