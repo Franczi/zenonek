@@ -50,8 +50,8 @@ public class Meteor {
     }
 
 
-    public void update(){
-
+    public void update(int playerSpeed){
+        posY+=playerSpeed;
         posY+=speed;
 
         if(posY>maxY+bitmap.getHeight()){
