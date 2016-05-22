@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -207,4 +208,14 @@ public class Playground extends SurfaceView implements Runnable {
         gameThread=new Thread(this);
         gameThread.start();
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+        playerController.buttonClicked(event, running, zenonek);
+
+        return true;
+    }
+
+
 }

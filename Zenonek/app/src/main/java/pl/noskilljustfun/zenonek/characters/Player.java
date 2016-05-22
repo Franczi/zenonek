@@ -21,18 +21,12 @@ public class Player {
     private int shield;
 
 
-
-
-
-
-
-
     private boolean isPressRight=false;
     private boolean isPressLeft=false;
 
-    private final static int MOVE_LEFT =-1;
-    private final static int MOVE_RIGHT =1;
-  // private boolean isMoving=false;
+    private final static int MOVE_LEFT =-15;
+    private final static int MOVE_RIGHT =15;
+
 
 
     public Player(Context context) {
