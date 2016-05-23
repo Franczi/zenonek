@@ -175,7 +175,7 @@ public class Playground extends SurfaceView implements Runnable {
 
 
             canvas.drawText("Shield:" + zenonek.getShield(), 10, 40, paint);
-            canvas.drawText("Distance:"+distanceRemaining / 1000 + " KM", 800, 40, paint);
+            canvas.drawText("Distance:"+distanceRemaining / 1000 + " KM", 350, 100, paint);
             canvas.drawText("Time:"+ timeTaken/1000+"s",500,40,paint);
 
 
@@ -201,13 +201,13 @@ public class Playground extends SurfaceView implements Runnable {
             {
                 paint.setTextSize(80);
                 paint.setTextAlign(Paint.Align.CENTER);
-                canvas.drawText("GAME OVER",600 , 100, paint);
+                canvas.drawText("GAME OVER",350 , 200, paint);
                 paint.setTextSize(25);
-                canvas.drawText("Fastest:" + fastestTime + "s", 600, 160, paint);
-                canvas.drawText("Time:" + timeTaken/1000 + "s", 600, 200, paint);
-                canvas.drawText("DistanceRemaining:" + distanceRemaining / 100 + " KM", 600, 240, paint);
+              //  canvas.drawText("Fastest:" + fastestTime + "s", 300, 260, paint);
+                canvas.drawText("Time:" + timeTaken/1000 + "s", 350, 250, paint);
+                canvas.drawText("DistanceRemaining:" + distanceRemaining / 100 + " KM", 350, 300, paint);
                 paint.setTextSize(80);
-                canvas.drawText("TAP to REPLAY!", 600, 350, paint);
+                canvas.drawText("TAP to REPLAY!", 350, 400, paint);
 
             }
 
