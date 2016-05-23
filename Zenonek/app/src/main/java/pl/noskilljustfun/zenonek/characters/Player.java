@@ -34,7 +34,7 @@ public class Player {
 
     public Player(Context context, int x, int y) {
 
-        bitmap= BitmapFactory.decodeResource(context.getResources(),R.drawable.zenonek );
+        bitmap= BitmapFactory.decodeResource(context.getResources(),R.drawable.shippp );
         hitBox=new Rect(x,y,bitmap.getWidth(),bitmap.getHeight());
 
         maxX=x-bitmap.getHeight();

@@ -28,7 +28,7 @@ public class Meteor {
 
 
     public Meteor(Context context, int screenY, int screenX) {
-        bitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.meteor );
+        bitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.meteor1 );
         maxY=screenY+400;
         maxX=screenX;
         minX=1;
