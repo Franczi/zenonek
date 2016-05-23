@@ -20,7 +20,6 @@ public class Meteor {
     //wychodzenie poza ekran
     private int maxY;
     private int minY;
-
     private int maxX;
     private int minX;
     //kolizje
@@ -56,7 +55,6 @@ public class Meteor {
 
         if(posY>maxY+bitmap.getHeight()){
             Random generator=new Random();
-            speed=generator.nextInt(10)+10;
             posY=minY;
             posX=generator.nextInt(maxX)-bitmap.getWidth();
 
@@ -86,4 +84,11 @@ public class Meteor {
         return hitBox;
     }
 
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
 }

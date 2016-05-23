@@ -12,22 +12,17 @@ import pl.noskilljustfun.zenonek.R;
  */
 public class Player {
 
-
-    private final static  int MAX_SPEED=20;
     private Bitmap bitmap;
     private int posX,posY,maxX,maxY,minX,minY;
     private int speed=0;
     private Rect hitBox;
     private int shield;
 
-
     private boolean isPressRight=false;
     private boolean isPressLeft=false;
 
     private final static int MOVE_LEFT =-15;
     private final static int MOVE_RIGHT =15;
-
-
 
     public Player(Context context) {
         posX=100;
