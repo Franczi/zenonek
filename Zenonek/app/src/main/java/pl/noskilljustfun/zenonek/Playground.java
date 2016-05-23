@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.MotionEvent;
@@ -21,6 +22,7 @@ import pl.noskilljustfun.zenonek.characters.Player;
 public class Playground extends SurfaceView implements Runnable {
     private boolean running;
     private boolean ending;
+    private boolean lvlup;
     private Thread gameThread=null;
     private Player zenonek;
     private Meteor meteor;
@@ -40,6 +42,7 @@ public class Playground extends SurfaceView implements Runnable {
     private SurfaceHolder playerHolder;
     private  PlayerController playerController;
     private int x,y;
+    private int count;
 
 
 
@@ -57,7 +60,7 @@ public class Playground extends SurfaceView implements Runnable {
 
 
 
-
+        count=0;
         x=scrX;
         y=scrY;
         startGame();
@@ -116,26 +119,59 @@ public class Playground extends SurfaceView implements Runnable {
                 ending=true;
             }}
 
+
         zenonek.update();
-        meteor.update();
-        meteor1.update();
-
-        meteor2.update();
-
-        meteor3.update();
-
         if(!ending) {
+
+            meteor.update();
+            meteor1.update();
+
+            meteor2.update();
+
+            meteor3.update();
             distanceRemaining -= zenonek.getSpeed();
 
             timeTaken=System.currentTimeMillis()-timeStart;
         }
-        if(distanceRemaining<0)
+
+        if(distanceRemaining<=0)
         {
-            if(timeTaken<fastestTime)
-            {fastestTime=timeTaken;
-            }
-            ending=true;
+            lvlup=true;
+
         }
+
+        if(!lvlup)
+        {
+
+
+            meteor.update();
+            meteor1.update();
+
+            meteor2.update();
+
+            meteor3.update();
+
+            lvlup=false;
+        }
+        if(lvlup)
+        {
+            count+=1;
+            if(count==1)
+            {
+                distanceRemaining=10000;
+
+            }
+            if(count==2)
+            {
+                distanceRemaining=20000;
+            }
+            if(count==3)
+            {
+                distanceRemaining=40000;
+            }
+            zenonek.getShield();
+        }
+
 
 
     }
@@ -210,6 +246,16 @@ public class Playground extends SurfaceView implements Runnable {
                 canvas.drawText("TAP to REPLAY!", 350, 400, paint);
 
             }
+            if(lvlup)
+            {
+                paint.setTextSize(100);
+                paint.setTextAlign(Paint.Align.CENTER);
+                canvas.drawText("LVL UP !!!",350 ,300,paint);
+                canvas.drawColor(Color.TRANSPARENT);
+
+
+
+            }
 
 
 
@@ -230,6 +276,15 @@ public class Playground extends SurfaceView implements Runnable {
         gameThread=new Thread(this);
         gameThread.start();
     }
+    private void level()
+    {
+        lvlup=false;
+
+
+        //pobranie czasu startowego
+        timeStart=System.currentTimeMillis();
+
+    }
     private void startGame(){
         //inicjalizacja obiektow
         //inicjalizacja metody game end
@@ -245,6 +300,7 @@ public class Playground extends SurfaceView implements Runnable {
         distanceRemaining=10000; //10km
         timeTaken=0;
 
+
         //pobranie czasu startowego
         timeStart=System.currentTimeMillis();
 
@@ -252,6 +308,7 @@ public class Playground extends SurfaceView implements Runnable {
 
 
     }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -260,7 +317,9 @@ public class Playground extends SurfaceView implements Runnable {
         if(ending){
             startGame();
         }
-
+        if(lvlup) {
+            level();
+        }
         return true;
     }
 
